@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameLoop : MonoBehaviour {
 	
-	private bool DEBUG_MODE = true;
+	private bool DEBUG_MODE = false;
 	private int CONFLICT_ELEMENT = 1;
 	private int CONFLICT_GLASS = 2;
 	private int CONFLICT_GLASS_OUTOFRANGE = 4;
@@ -68,7 +68,7 @@ public class GameLoop : MonoBehaviour {
 			nextDownTime = Time.time + speed;
 		}
 		else if(Time.time >= nextDownTime) {
-			//MoveDown(1);
+			MoveDown(1);
 			nextDownTime = Time.time + speed;
 		}
 	}
@@ -159,9 +159,14 @@ public class GameLoop : MonoBehaviour {
 			return;
 				
 		string[] matrix = currentElement.getRotatedMatrix(defaultRotateAngle);
+		
+		// Correct glass coordinates for element
 		int swap = curEl_height;
 		curEl_height = curEl_width;
 		curEl_width = swap;
+		int diff = Mathf.Abs(curEl_height - curEl_width) / 2;
+		curElGlass_x += (curEl_height > curEl_width ? 1 : -1) * diff;
+		curElGlass_y += (curEl_height > curEl_width ? -1 : 1) * diff;
 
 		// Normal rotation
 		int conflictMask = PredictMovementCollision(0, 0, matrix);
