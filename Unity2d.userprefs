@@ -1,0 +1,41 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameLoop.cs">
+    <Files>
+      <File FileName="Assets\Scripts\GameLoop.cs" Line="186" Column="14" />
+      <File FileName="Assets\Scripts\Glass.cs" Line="23" Column="1" />
+      <File FileName="Assets\Scripts\Element.cs" Line="125" Column="17" />
+      <File FileName="Assets\SpriteManager\SpriteManager.cs" Line="41" Column="16" />
+      <File FileName="Assets\SpriteManager\Sprite.cs" Line="1" Column="1" />
+      <File FileName="Assets\SpriteManager\LinkedSpriteManager.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Ortho2dCamera.cs" Line="39" Column="3" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True" selected="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>glass[curElGlass_y + 1 + y + my][curElGlass_x + 1 + x + mx]</Value>
+          <Value>curElGlass_x + 1 + x + mx</Value>
+          <Value>curElGlass_y + 1 + y + my</Value>
+          <Value>matrix[y][x]</Value>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <AuthorInfo Name="Andrey Niakhaichyk" Email="andrey@niakhaichyk.org" Copyright="gnomeby" Company="none" Trademark="" />
+</Properties>
