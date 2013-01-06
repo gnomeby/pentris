@@ -1,7 +1,7 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{241EEA36-A0D8-1D25-331C-6D63CA4B2C0C}"
+# Visual Studio 2008
+
+Project("{9FBB2E82-FD11-95DA-5128-80BC17148F0C}") = "Unity2d", "Assembly-CSharp.csproj", "{241EEA36-A0D8-1D25-331C-6D63CA4B2C0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,7 +14,10 @@ Global
 		{241EEA36-A0D8-1D25-331C-6D63CA4B2C0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{241EEA36-A0D8-1D25-331C-6D63CA4B2C0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+				GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
@@ -45,7 +48,5 @@ Global
 		$8.LineAlign = 0
 		$7.inheritsSet = Mono
 	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
+
 EndGlobal

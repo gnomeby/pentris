@@ -21,7 +21,7 @@ public class Element : MonoBehaviour {
 	private int colorIndex = 0;
 	
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		GameObject initSpriteManager = GameObject.Find("InitElementSpriteManager");
 		spriteManager = initSpriteManager.GetComponent<LinkedSpriteManager>();
 		
@@ -72,6 +72,12 @@ public class Element : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+	
+	public int color {
+		get {
+			return colorIndex;
+		}
 	}
 	
 	public string[] matrix {
@@ -149,12 +155,7 @@ public class Element : MonoBehaviour {
 	public void MoveRight() {
 		Vector3 pos = gameObject.transform.position;
 		gameObject.transform.position = new Vector3(pos.x + SPRITE_WIDTH, pos.y, pos.z);
-	}	
-	
-	public void MoveMultipleRight(int k) {
-		Vector3 pos = gameObject.transform.position;
-		gameObject.transform.position = new Vector3(pos.x + SPRITE_WIDTH * k, pos.y, pos.z);
-	}	
+	}
 	
 	public void MoveDown() {
 		Vector3 pos = gameObject.transform.position;
