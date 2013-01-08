@@ -6,6 +6,7 @@ using AssemblyCSharp;
 public class Glass : MonoBehaviour {
 	
 	public SpriteManager spriteManagerGlass, spriteManagerBlocks;
+	private GameLoop gameLoop;
 	
 	public int BackgroundWidth = 640;
 	public int BackgroundHeight = 480;
@@ -29,6 +30,7 @@ public class Glass : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		gameLoop = GameObject.Find("_Game").GetComponent<GameLoop>();
 		spriteManagerBlocks = GameObject.Find("InitElementSpriteManager").GetComponent<LinkedSpriteManager>();
 
 		spriteManagerGlass = GameObject.Find("InitBackGroundSpriteManager").GetComponent<LinkedSpriteManager>();
@@ -110,7 +112,7 @@ public class Glass : MonoBehaviour {
 				int x = gx - xpos;
 				if(x >=0 && y >=0 && x < matrix[0].Length && y < matrix.Length && matrix[y][x] == '1') {
 					Vector3 moveTo = new Vector3(
-						leftTopScreenGlassCorner.x - HorizontalBlocks*BlockSpriteSize + ((float)gx+0.5f)*BlockSpriteSize, 
+						leftTopScreenGlassCorner.x + ((float)gx+0.5f)*BlockSpriteSize, 
 						leftTopScreenGlassCorner.y + (-(float)gy-0.5f)*BlockSpriteSize, 
 						0
 						);
@@ -240,7 +242,7 @@ public class Glass : MonoBehaviour {
 	{
 		if(step == 0)
 			return true;
-		if(MatrixCollision(0, -step) != 0)
+		if(MatrixCollision(0, step) != 0)
 			return false;
 		
 		while(step > 0) {
@@ -271,11 +273,74 @@ public class Glass : MonoBehaviour {
 	public bool FinishElement()
 	{
 		AbsorbElement(currentElement, curElGlass_y, curElGlass_x);
+		currentElement.Remove();
+		
+		gameLoop.AddDeletedLines(RemoveFullLines());
+		
 		currentGO = ThrowNextElement();
 		currentElement = currentGO.GetComponent<Element>();
 		if(MatrixCollision(0, 0) != 0)
 			return false;
 		
 		return true;
-	}	
+	}
+	
+	private int RemoveFullLines()
+	{
+		int deletedLines = 0;
+		for(int gy = 0; gy < VerticalBlocks; gy++) {
+			int blocks = 0;
+			for(int gx = 0; gx < HorizontalBlocks; gx++) {
+				if(glassSprites[gy, gx] != null)
+					blocks++;
+			}
+			if(blocks == HorizontalBlocks) {
+				RemoveFullLine(gy);
+				deletedLines++;
+			}
+		}
+		
+		return deletedLines;
+	}
+	
+	private void RemoveFullLine(int yline)
+	{
+		for(int gx = 0; gx < HorizontalBlocks; gx++) {
+			spriteManagerBlocks.RemoveSprite(glassSprites[yline, gx]);
+		}
+		
+		for(int gy = yline; gy >= 1; gy--) {
+			for(int gx = 0; gx < HorizontalBlocks; gx++) {
+				glassSprites[gy, gx] = glassSprites[gy-1, gx];
+				if(glassSprites[gy, gx] != null) {
+					Vector3 curPos = glassSprites[gy, gx].offset;
+					glassSprites[gy, gx].offset = new Vector3(curPos.x, curPos.y - BlockSpriteSize, curPos.z);
+					glassSprites[gy, gx].SetSizeXY(BlockSpriteSize, BlockSpriteSize);
+				}
+			}
+		}		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -48,6 +48,7 @@
      <Compile Include="Assets\Scripts\Element.cs" />
      <Compile Include="Assets\Scripts\GameLoop.cs" />
      <Compile Include="Assets\Scripts\Glass.cs" />
+     <Compile Include="Assets\Scripts\MenuLoop.cs" />
      <Compile Include="Assets\Scripts\Ortho2dCamera.cs" />
      <Compile Include="Assets\SpriteManager\LinkedSpriteManager.cs" />
      <Compile Include="Assets\SpriteManager\Sprite.cs" />

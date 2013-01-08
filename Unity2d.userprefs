@@ -2,14 +2,14 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameLoop.cs">
     <Files>
-      <File FileName="Assets\Scripts\GameLoop.cs" Line="133" Column="21" />
-      <File FileName="Assets\Scripts\Glass.cs" Line="91" Column="20" />
-      <File FileName="Assets\Scripts\Element.cs" Line="24" Column="12" />
+      <File FileName="Assets\Scripts\GameLoop.cs" Line="127" Column="21" />
+      <File FileName="Assets\Scripts\Glass.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Element.cs" Line="1" Column="1" />
       <File FileName="Assets\SpriteManager\SpriteManager.cs" Line="1" Column="1" />
       <File FileName="Assets\SpriteManager\Sprite.cs" Line="1" Column="1" />
-      <File FileName="Assets\SpriteManager\LinkedSpriteManager.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Ortho2dCamera.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Conflicts.cs" Line="1" Column="1" />
+      <File FileName="Assets\SpriteManager\LinkedSpriteManager.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -19,6 +19,7 @@
               <Node name="Scripts" expanded="True">
                 <Node name="GameLoop.cs" selected="True" />
               </Node>
+              <Node name="SpriteManager" expanded="True" />
             </Node>
           </Node>
         </State>

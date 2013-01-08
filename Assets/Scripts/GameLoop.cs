@@ -4,8 +4,14 @@ using System.Collections;
 using AssemblyCSharp;
 
 public class GameLoop : MonoBehaviour {
-	public float speed = 1;
-	public int FPS = 1;
+	public float startSpeed = 0.8f;
+	public int level = 1;
+	public int FPS = 60;
+	
+	public GUIText textLevel;
+	public GUIText textLines;
+	public GUIText textScore;
+	public GUIText textGameOver;
 	
 	private const int defaultStep = 1;
 	private const int defaultRotateAngle = 90;
@@ -15,6 +21,8 @@ public class GameLoop : MonoBehaviour {
 	private float nextDownTime;
 	
 	private bool isGameOver = false;	
+	private int lines = 0;
+	private int score = 0;
 	
 	void Awake() 
 	{
@@ -24,6 +32,9 @@ public class GameLoop : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
+		// Init texts
+		updateGUI();
+		
 		// Init glass
 		glass = GameObject.Find("Glass").GetComponent<Glass>();
 		
@@ -31,7 +42,7 @@ public class GameLoop : MonoBehaviour {
 		glass.CreateNextElement();
 		glass.ThrowNextElement();
 		
-		nextDownTime = Time.time + speed;
+		nextDownTime = Time.time + startSpeed;
 	}
 	
 	// Update is called once per frame
@@ -45,15 +56,17 @@ public class GameLoop : MonoBehaviour {
 			if(!retval)
 				NextElement();
 			
-			nextDownTime = Time.time + speed;
+			nextDownTime = Time.time + startSpeed;
 		}
 	}
 	
 	void NextElement()
 	{
 		bool retval = glass.FinishElement();
-		if(retval == false)
-			isGameOver = true;		
+		if(retval == false) {
+			isGameOver = true;
+			textGameOver.enabled = true;
+		}
 	}
 	
 	void OnGUI() 
@@ -82,5 +95,35 @@ public class GameLoop : MonoBehaviour {
 				}
 			}			
 		}        
-    }	
+    }
+	
+	public void AddDeletedLines(int deletedLines)
+	{
+		lines += deletedLines;
+		switch(deletedLines) {
+			case 1:
+				score += 100;
+				break;
+			case 2:
+				score += 300;
+				break;
+			case 3:
+				score += 800;
+				break;
+			case 4:
+				score += 1500;
+				break;
+			case 5:
+				score += 2000;
+				break;
+		}
+		updateGUI();
+	}
+	
+	void updateGUI()
+	{
+		textLevel.text = "" + level;
+		textLines.text = "" + lines;
+		textScore.text = "" + score;
+	}
 }

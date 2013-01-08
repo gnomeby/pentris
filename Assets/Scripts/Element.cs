@@ -160,5 +160,12 @@ public class Element : MonoBehaviour {
 	public void MoveDown() {
 		Vector3 pos = gameObject.transform.position;
 		gameObject.transform.position = new Vector3(pos.x, pos.y - SPRITE_WIDTH, pos.z);
-	}	
+	}
+	
+	public void Remove() {
+		for(int i = 0; i < sprites.Length; i++) {
+			spriteManager.RemoveSprite(sprites[i]);
+		}
+		Destroy(gameObject);
+	}
 }
