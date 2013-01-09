@@ -5,6 +5,8 @@ using AssemblyCSharp;
 
 public class GameLoop : MonoBehaviour {
 	public float startSpeed = 0.8f;
+	public float deltaSpeed = 0.1f;
+	public float nextLevelSeconds = 180;
 	public int level = 1;
 	public int FPS = 60;
 	
@@ -19,6 +21,7 @@ public class GameLoop : MonoBehaviour {
 	private Glass glass;
 
 	private float nextDownTime;
+	private float nextLevelTime;
 	
 	private bool isGameOver = false;	
 	private int lines = 0;
@@ -39,10 +42,11 @@ public class GameLoop : MonoBehaviour {
 		glass = GameObject.Find("Glass").GetComponent<Glass>();
 		
 		// Generate first element && throw it
-		glass.CreateNextElement();
-		glass.ThrowNextElement();
+		glass.CreateNextElement(level);
+		glass.ThrowNextElement(level);
 		
 		nextDownTime = Time.time + startSpeed;
+		nextLevelTime = Time.time + nextLevelSeconds;
 	}
 	
 	// Update is called once per frame
@@ -50,6 +54,14 @@ public class GameLoop : MonoBehaviour {
 	{
 		if(isGameOver)
 			return;
+		
+		if(Time.time >= nextLevelTime) {
+			level++;
+			startSpeed -= deltaSpeed;
+			updateGUI();
+			
+			nextLevelTime = Time.time + nextLevelSeconds;
+		}
 		
 		if(Time.time >= nextDownTime) {
 			bool retval = glass.MoveElementDown(defaultStep);
@@ -62,10 +74,14 @@ public class GameLoop : MonoBehaviour {
 	
 	void NextElement()
 	{
-		bool retval = glass.FinishElement();
+		bool retval = glass.FinishElement(level);
 		if(retval == false) {
 			isGameOver = true;
 			textGameOver.enabled = true;
+			
+			AudioSource[] sources = gameObject.GetComponents<AudioSource>();
+			sources[0].Stop();
+			sources[2].Play();
 		}
 	}
 	
@@ -93,6 +109,9 @@ public class GameLoop : MonoBehaviour {
 			else if(e.keyCode == KeyCode.Space) {
 				while(glass.MoveElementDown(defaultStep)) {
 				}
+			}
+			else if(e.keyCode == KeyCode.Escape) {
+				Application.LoadLevel(0);
 			}			
 		}        
     }
@@ -118,6 +137,11 @@ public class GameLoop : MonoBehaviour {
 				break;
 		}
 		updateGUI();
+		
+		if(deletedLines > 0) {
+			AudioSource[] sources = gameObject.GetComponents<AudioSource>();
+			sources[1].Play();
+		}
 	}
 	
 	void updateGUI()

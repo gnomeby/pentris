@@ -48,7 +48,7 @@ public class Glass : MonoBehaviour {
 	{
 	}
 	
-	public GameObject ThrowNextElement()
+	public GameObject ThrowNextElement(int level)
 	{
 		currentGO = nextGO;
 		currentElement = currentGO.GetComponent<Element>();
@@ -60,7 +60,7 @@ public class Glass : MonoBehaviour {
 		curElGlass_y = 0;
 				
 		// Generate next element
-		nextGO = CreateNextElement();
+		nextGO = CreateNextElement(level);
 			
 		// Move current into the glass to the left top line
 		Vector3 newPosition = new Vector3(
@@ -93,7 +93,7 @@ public class Glass : MonoBehaviour {
 		return currentGO;
 	}
 	
-	public GameObject CreateNextElement() 
+	public GameObject CreateNextElement(int level) 
 	{
 		int index = Random.Range(0, elements.Length);
 		return nextGO = (GameObject)Instantiate(elements[index], nextElementCenter, gameObject.transform.rotation);
@@ -270,14 +270,14 @@ public class Glass : MonoBehaviour {
 		return true;
 	}
 	
-	public bool FinishElement()
+	public bool FinishElement(int level)
 	{
 		AbsorbElement(currentElement, curElGlass_y, curElGlass_x);
 		currentElement.Remove();
 		
 		gameLoop.AddDeletedLines(RemoveFullLines());
 		
-		currentGO = ThrowNextElement();
+		currentGO = ThrowNextElement(level);
 		currentElement = currentGO.GetComponent<Element>();
 		if(MatrixCollision(0, 0) != 0)
 			return false;
