@@ -87,10 +87,17 @@ public class GameLoop : MonoBehaviour {
 	
 	void OnGUI() 
 	{
+        Event e = Event.current;
+		
+        if (e.isKey && e.type == EventType.KeyDown) {
+			if(e.keyCode == KeyCode.Escape) {
+				Application.LoadLevel(0);
+			}			
+		}        
+
 		if(isGameOver)
 			return;
 		
-        Event e = Event.current;
         if (e.isKey && e.type == EventType.KeyDown) {
 			if(e.keyCode == KeyCode.UpArrow) {
 				glass.RotateElement(defaultRotateAngle);
@@ -110,9 +117,6 @@ public class GameLoop : MonoBehaviour {
 				while(glass.MoveElementDown(defaultStep)) {
 				}
 			}
-			else if(e.keyCode == KeyCode.Escape) {
-				Application.LoadLevel(0);
-			}			
 		}        
     }
 	
@@ -121,19 +125,19 @@ public class GameLoop : MonoBehaviour {
 		lines += deletedLines;
 		switch(deletedLines) {
 			case 1:
-				score += 100;
+				score += 10;
 				break;
 			case 2:
-				score += 300;
+				score += 40;
 				break;
 			case 3:
-				score += 800;
+				score += 90;
 				break;
 			case 4:
-				score += 1500;
+				score += 160;
 				break;
 			case 5:
-				score += 2000;
+				score += 250;
 				break;
 		}
 		updateGUI();

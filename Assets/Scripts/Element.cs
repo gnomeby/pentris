@@ -9,6 +9,7 @@ public class Element : MonoBehaviour {
 	
 	public bool isRotatable;
 	public bool isMirrowable;
+	public float complexity = 1;
 	private bool isMirrowed = false;
 	private int rotatedAngle = 0;
 	

@@ -21,6 +21,8 @@ public class Glass : MonoBehaviour {
 	public Vector3 nextElementCenter = new Vector3(455, 363, 0);
 	public Vector3 leftTopScreenGlassCorner = new Vector3(89, 472, 0);
 	
+	private int randomizerMaximumComplexity = 5;
+	
 	private Sprite[,] glassSprites;
 	
 	private GameObject currentGO, nextGO;
@@ -93,9 +95,24 @@ public class Glass : MonoBehaviour {
 		return currentGO;
 	}
 	
-	public GameObject CreateNextElement(int level) 
+	public GameObject CreateNextElement(int level)
 	{
-		int index = Random.Range(0, elements.Length);
+		int currentLevel = Mathf.Min(level, randomizerMaximumComplexity);
+		float complexity = 0;
+		for(int i = 0; i < elements.Length; i++) {
+			complexity += Mathf.Max((float)(6 - elements[i].GetComponent<Element>().complexity) / currentLevel, 1.0f);
+		}		
+		float position = Random.Range(0, complexity);
+		complexity = 0;
+		int index = 0;
+		for(int i = 0; i < elements.Length; i++) {
+			complexity += Mathf.Max((float)(6 - elements[i].GetComponent<Element>().complexity) / currentLevel, 1.0f);
+			if(complexity >= position) {
+				index = i;
+				break;				
+			}
+		}
+		
 		return nextGO = (GameObject)Instantiate(elements[index], nextElementCenter, gameObject.transform.rotation);
 	}
 	
